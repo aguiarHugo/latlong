@@ -1,15 +1,34 @@
-import Geocode from 'react-geocode';
+import { useState, useEffect } from 'react';
 
 const LocationButton = () => {
-  const handleClick = () => {
-    // Obter coordenadas geográficas
+  const [currentCoordinates, setCurrentCoordinates] = useState(null);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      updateCoordinates();
+    }, 10000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (currentCoordinates) {
+      const url = `https://www.google.com/maps/search/?api=1&query=${currentCoordinates}`;
+      window.open(url, '_blank');
+    }
+  }, [currentCoordinates]);
+
+  const updateCoordinates = () => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
-        const url = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
+        const newCoordinates = `${latitude},${longitude}`;
 
-        // Abrir o Google Maps
-        window.open(url, '_blank');
+        if (newCoordinates !== currentCoordinates) {
+          setCurrentCoordinates(newCoordinates);
+        }
       },
       (error) => {
         console.error('Erro ao obter as coordenadas:', error);
@@ -18,7 +37,7 @@ const LocationButton = () => {
   };
 
   return (
-    <button onClick={handleClick}>Lat / Long</button>
+    <button onClick={updateCoordinates}>Lat / Long</button>
   );
 };
 
