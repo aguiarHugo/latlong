@@ -37,7 +37,7 @@ const LocationButton = () => {
   };
 
   return (
-    <button onClick={updateCoordinates}>Lat / Long</button>
+    <button className='latlong-button' onClick={updateCoordinates}>Lat / Long</button>
   );
 };
 
