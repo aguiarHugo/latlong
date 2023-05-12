@@ -1,69 +1,15 @@
-import React, { useState } from 'react';
-import { CSSTransition } from 'react-transition-group';
+
 import './App.css';
 
-function App() {
-  const [coordinates, setCoordinates] = useState(null);
+import LocationButton from '././components/LocationButton';
 
-  const getLocation = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-      alert("Geolocalização não é suportada pelo seu navegador.");
-    }
-  };
-
-  const showPosition = (position) => {
-    const latitude = position.coords.latitude;
-    const longitude = position.coords.longitude;
-    setCoordinates({ latitude, longitude });
-  };
-
-  const openGoogleMaps = () => {
-    if (coordinates) {
-      const { latitude, longitude } = coordinates;
-      const url = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
-      window.open(url, "_blank");
-    }
-  };
-
+const App = () => {
   return (
     <div>
-      <button
-        className='latlong-button'
-        type='button'
-        onClick={getLocation}
-      >
-        Lat / Long
-      </button>
-
-      <CSSTransition
-        in={coordinates !== null}
-        timeout={300}
-        classNames="fade"
-        unmountOnExit
-      >
-        <div className="coordinates">
-          {coordinates && (
-            <p>
-              Latitude: {coordinates.latitude}<br />
-              Longitude: {coordinates.longitude}
-            </p>
-          )}
-
-          {coordinates && (
-            <button
-              className='map-button'
-              type='button'
-              onClick={openGoogleMaps}
-            >
-              Abrir no Google Maps
-            </button>
-          )}
-        </div>
-      </CSSTransition>
+      <h1>Coordenadas</h1>
+      <LocationButton />
     </div>
   );
-}
+};
 
 export default App;
