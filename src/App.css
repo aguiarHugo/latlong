@@ -22,6 +22,10 @@
   border: 2px solid green;
 }
 
+span {
+  font-weight: bold;
+}
+
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);

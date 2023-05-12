@@ -29,10 +29,11 @@ function App() {
       </button>
 
       {coordinates && (
-        <p>
-          Latitude: {coordinates.latitude}<br />
-          Longitude: {coordinates.longitude}
-        </p>
+        <>
+          <h3>Suas coordenadas são:</h3>
+          <p><span>Latitude:</span> {coordinates.latitude}</p>
+          <p><span>Longitude:</span> {coordinates.longitude}</p>
+        </>
       )}
     </div>
   );
